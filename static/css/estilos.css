@@ -243,7 +243,7 @@ textarea {
     border-style: dashed;
     border-color: #555;
     border-radius: 15px;
-    padding: 15px;
+    padding: 0 15px 0 15px;
 }
 #canal-form legend {
     font-weight: bold;

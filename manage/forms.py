@@ -36,6 +36,8 @@ class CanalForm(forms.ModelForm):
         super(CanalForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
+        # Modificar widget de descripción
+        self.fields['descripcion'].widget = forms.Textarea(attrs={'rows': '4', 'class': 'form-control'})
 
         campos_layout = []
         for i in range(1, self.num_campos_adicionales + 1):
@@ -74,12 +76,15 @@ class CanalForm(forms.ModelForm):
             Fieldset(
                 'Campos del canal:',
                 *campos_layout,
-                'nombre',
-                'descripcion',
-                Div(
-                    Submit('submit', 'Guardar', css_class='btn btn-success mx-auto'),
-                    css_class='text-center mt-3'                     
-                ),                              
+                 Fieldset(
+                    'Descripción del canal:',
+                    'nombre',
+                    'descripcion',
+                    Div(
+                        Submit('submit', 'Guardar', css_class='btn btn-success mx-auto'),
+                        css_class='text-center mt-3'                     
+                    ), 
+                 ),                             
             )            
         )
 
@@ -119,12 +124,12 @@ class CanalEditForm(forms.ModelForm):
     class Meta:
         model = TB_BEE_CANALES
         fields = ['nombre', 'descripcion']
-
+        
     def __init__(self, *args, **kwargs):
         super(CanalEditForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-
+        self.fields['descripcion'].widget = forms.Textarea(attrs={'rows': '4', 'class': 'form-control'})
         self.helper.layout = Layout(
             'nombre',
             'descripcion',

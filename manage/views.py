@@ -69,7 +69,6 @@ def signin(request):
             'claseMsj': 'alert alert-danger' 
             }) 
         else:
-            print("else")
             login_django(request, user)
             return redirect('home')
         

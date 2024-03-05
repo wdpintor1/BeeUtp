@@ -22,6 +22,8 @@ def chart(request):
 def obtener_datos(request, id_canal):
     breadcrumbs = [{'url': 'lista_canales', 'label': 'Canales', 'actual':'Graficas canal'}]
     charts = []
+    fechas=[]
+    medidas_valores=[]
     fields = {}
     form = GraficaForm(id_canal, initial={'idCanal': id_canal})
     try:

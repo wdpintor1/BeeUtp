@@ -13,10 +13,10 @@
     {% endfor %}
 {% endblock %}
 {% block content %}
-<div class="container-fluid mt-5">
+<div class="container-fluid">
         <div class="row">
             <!-- Columna del formulario CanalEditForm y CampoFormSet -->
-            <div class="col-md-6" style="overflow-y: auto; max-height: 500px;">
+            <div class="col-md-8" style="overflow-y: auto; max-height: 600px;">
                 <div class="card shadow">
                     <div class="card-body">
                         <!--<h2 class="mb-4 text-center">Configurar canal</h2>-->
@@ -28,7 +28,7 @@
                                 <!-- Agregar prefijo al formset y manejarlo en la plantilla -->
                                 {% for form in formset %}                                
                                 <div class="row align-items-center d-inline-flex mb-2">
-                                    <div class="col-md-10 pr-6">
+                                    <div class="col-md-10">
                                         <div id="div_id_campo_adicional_{{ form.prefix }}">
                                             <div>
                                                 <input type="hidden" name="{{ form.prefix }}-idCampo" value="{{form.idCampo.value}}" id="{{ form.prefix }}-idCampo">
@@ -36,7 +36,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 pr-6">
+                                    <div class="col-md-1">
                                         <div class="checkbox-align text-center">
                                             <div class="form-group">
                                                 <div id="activo_campo_adicional_{{ form.prefix }}" class="custom-control custom-checkbox">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <!-- Columna de la ayuda y configuración del canal -->
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="card shadow">
                     <div class="card-body">
                         <h2 class="mb-4">Ayuda</h2>
