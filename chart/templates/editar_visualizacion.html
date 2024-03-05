@@ -1,0 +1,16 @@
+{% load crispy_forms_tags %}
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        
+        <h5 class="modal-title mx-auto">Editar Visualización</h5>        
+      </div>
+      <div class="modal-body" id="contenidoModal">               
+          <form id="editForm" method="post" action="{% url 'editar_visualizacion' id_chart id_canal %}" class="form-horizontal">
+              {% csrf_token %}
+              {% crispy form %}
+          </form>                
+      </div>
+    </div>
+  </div>

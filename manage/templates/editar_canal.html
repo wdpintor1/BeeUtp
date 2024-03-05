@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+    {% for breadcrumb in breadcrumbs %}
+        <!-- Migas de pan específicas para esta página -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url breadcrumb.url %}">{{ breadcrumb.label }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.actual }}</li>
+            </ol>
+        </nav>
+    {% endfor %}
+{% endblock %}
+{% block content %}
+<div class="container-fluid mt-5">
+        <div class="row">
+            <!-- Columna del formulario CanalEditForm y CampoFormSet -->
+            <div class="col-md-6" style="overflow-y: auto; max-height: 500px;">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <!--<h2 class="mb-4 text-center">Configurar canal</h2>-->
+                        <form method="post" id="canal-form">
+                            <fieldset>
+                                <legend>Campos del canal: </legend>
+                                {% csrf_token %}                             
+                                {{ formset.management_form }}  
+                                <!-- Agregar prefijo al formset y manejarlo en la plantilla -->
+                                {% for form in formset %}                                
+                                <div class="row align-items-center d-inline-flex mb-2">
+                                    <div class="col-md-10 pr-6">
+                                        <div id="div_id_campo_adicional_{{ form.prefix }}">
+                                            <div>
+                                                <input type="hidden" name="{{ form.prefix }}-idCampo" value="{{form.idCampo.value}}" id="{{ form.prefix }}-idCampo">
+                                                <input type="text" name="{{ form.prefix }}-nombre" placeholder="Campo {{ forloop.counter }}" class="form-group mx-auto text-left campo-adicional-input textinput form-control" value="{{ form.nombre.value }}" id="{{ form.prefix }}-nombre" {% if not form.nombre.value %}readonly{% endif %}>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 pr-6">
+                                        <div class="checkbox-align text-center">
+                                            <div class="form-group">
+                                                <div id="activo_campo_adicional_{{ form.prefix }}" class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="{{ form.prefix }}-activo" class="form-check-input mt-2 activo-campo-input checkboxinput custom-control-input" id="id_activo_campo_adicional_{{ form.prefix }}" {% if form.activo.value %}checked{% endif %}>
+                                                    <label for="id_activo_campo_adicional_{{ form.prefix }}" class="custom-control-label"> </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                           
+                                {% endfor %}
+                            </fieldset>
+                            <fieldset>
+                                <legend>Descripción del canal </legend>
+                            {% crispy form %} 
+                            </fieldset>                           
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Columna de la ayuda y configuración del canal -->
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="mb-4">Ayuda</h2>
+                        <p>Los canales almacenan todos los datos que recopila una aplicación de BeeUtp. 
+                            Cada canal incluye ocho campos que pueden contener cualquier tipo de datos. Una vez que
+                            recopilas datos en un canal, puedes utilizar aplicaciones de BeeUtp para analizarlos y visualizarlos.
+                        </p>
+                        <h2 class="mb-4">Configuración del canal</h2>
+                        <ul>
+                            <li><strong>Nombre del canal:</strong> Ingresa un nombre para tu canal</li>
+                            <li><strong>Descripción:</strong> Ingresa una descripción para tu canal</li>
+                            <li><strong>Campos:</strong> Da click en el botón "agregar campo" para configurar un nuevo campo para tu canal, podrás agregar un máximo de 8 campos</li>                        
+                        </ul>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/crear_canal.js' %}"></script>
+    <script src="{% static 'js/editar_canal.js' %}"></script>   
+{% endblock %}
+<!-- Messages -->
+{% block messages %}
+<ul class="message-container">
+    {% for message in messages %}
+        <li
+        {% if message.tags %}
+            class="{{ message.tags }}"
+        {% else %}
+            class="message-generico"
+        {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

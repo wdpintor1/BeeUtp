@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% if form.errors %}
+    <div class="alert alert-danger">
+        {{ form.errors }}
+    </div>
+{% endif %}
+{%block content%}
+<div class="divFondo">  
+  <div class="centerPanel">
+    <h1 class="tituloPagina">Registro de usuarios</h1>
+    <form action="/signup/" method="POST">
+      {% csrf_token %}
+      {% crispy form %}            
+    </form>
+  </div>
+</div>
+{% endblock %}
