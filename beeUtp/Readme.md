@@ -18,3 +18,4 @@ Para correr la aplicación en local:
 .\venv\Scripts\activate 
 * correr la instancia docker desde docker y desde la consola
 docker run --rm -p 6379:6379 redis:7
+* hola
