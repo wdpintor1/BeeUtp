@@ -77,17 +77,22 @@
         </div>
         <script>
             $(document).ready(function () {
-                $('.eliminar-btn').on('click', function () {
-                    // Obtener el botón
-                    var botonEliminar = document.querySelector('#btnEliminarList');                    
-                    // Obtener el valor de data-canal-id
-                    var canalId = botonEliminar.dataset.canalId;
-                    // Actualizar el enlace de eliminación en el modal
-                    var eliminarBtn = $('#confirmacionModal').find('.eliminarBtn');
+                // Capturar el evento click del botón eliminar
+                $('#btnEliminarList').on('click', function () {
+                    // Obtener el ID del canal
+                    var canalId = $(this).data('canal-id');
+                    // Asignar el ID del canal al botón de eliminar en el modal
+                    $('#eliminarBtn').data('canal-id', canalId);
+                });
+        
+                // Capturar el evento click del botón eliminar en el modal
+                $('#eliminarBtn').on('click', function () {
+                    // Obtener el ID del canal
+                    var canalId = $(this).data('canal-id');
                     // Construir la URL de eliminación
                     var eliminarUrl = '/canales/eliminar_canal/' + canalId;
                     // Redirigir a la URL de eliminación
                     window.location.href = eliminarUrl;
                 });
             });
-        </script> 
+        </script>

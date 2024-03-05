@@ -9,8 +9,6 @@ const chatSocket = new WebSocket(
 
 chatSocket.onmessage = function(e) {         
     var data = JSON.parse(e.data);
-    console.log("este")
-    console.log(data)
     var valor=document.querySelector('#chat-message-input').value;
     valor = (data.message + '\n');
     //Agregamos codigo para ciclado de los charts
@@ -19,7 +17,6 @@ chatSocket.onmessage = function(e) {
 
 items.forEach(function(item) {
     var canvasId = 'myLineChart' + item.dataset.itemId;
-    console.log(canvasId);
     var canvas = document.getElementById(canvasId);
     if (canvas) {    
         // Continúa con las operaciones del gráfico

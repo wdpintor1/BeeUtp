@@ -1,0 +1,375 @@
+.divFondo {
+    background-image: url('/static/img/fondoCeldas.jpg');
+    background-size: cover;
+   /* Ajustar la imagen para cubrir todo el fondo */
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    height: 87vh;
+   /* O ajusta la altura según tus necesidades */
+    vertical-align: center;
+}
+body {
+    overflow: hidden;
+}
+.centerPanel{
+    background-color: #343a40;
+    padding: 20px;
+    justify-content: center;
+   /* Centra horizontalmente */
+    align-items: center;
+    text-align: center;
+    transition: 2s;
+}
+.formContainer{
+    padding-top: 40px;
+}
+.centerPanel p{
+    display: block;
+    color:#ffc107;
+}
+.centerPanel p input{
+    text-align: center;
+}
+.centerPanel button{
+    display: inline-block;
+   /* Permite establecer márgenes automáticos */
+    margin: auto;
+}
+.tituloPagina{
+    color:#ffc107;
+    font-size: larger;
+    padding-bottom: 10px;
+}
+.message-container{
+    animation: fadeInAndOut 3s forwards;
+    position: fixed;
+    margin:0! important;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1000;
+}
+.message-container.show {
+    opacity: 1;
+}
+/* Animación de entrada y salida */
+@keyframes fadeInAndOut {
+    0% {
+        opacity: 0;
+   }
+    10%, 90% {
+        opacity: 1;
+   }
+    100% {
+        opacity: 0;
+   }
+}
+.message-container.animated {
+    animation: fadeIn 0.5s ease-in-out;
+}
+.message-generico {
+    color: #721c24; /* Color del texto */
+    background-color: #f8d7da; /* Color de fondo */
+    border: 1px solid #f5c6cb; /* Borde */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 10px; /* Margen inferior */
+}
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.chart-item {
+    width: calc(50% - 20px);
+   /* Ajusta según tus necesidades */
+    margin-bottom: 40px;
+   /* Ajusta según tus necesidades */
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+   /* Agrega un fondo de color para mayor claridad */
+    padding: 20px;
+   /* Agrega relleno adicional para separar el contenido del borde */
+}
+.chart-item canvas {
+    height: 200px;
+   /* Ajusta la altura del canvas según tus necesidades */
+    width: 100%;
+   /* Haz que el canvas ocupe el 100% del ancho del contenedor */
+    border: 1px solid #ccc;
+   /* Agrega un borde para mayor claridad */
+}
+@media (max-width: 768px) {
+    .chart-item {
+        width: 100%;
+   }
+}
+.nav-item{
+    margin-right: 20px;
+}
+.containerCanales{
+    margin-left: 10%;
+    height: 80vh;
+    width: 80vw;
+}
+.listContainer{
+    margin-top: 40px;
+    max-height: 60vh!important;
+}
+.container{
+    height: 80vh;
+    width: 80vh;
+    overflow-y: auto;
+}
+.btn-custom {
+    background-color:#343a40!important; /* Color verde de ejemplo */
+    color: #fff!important; 
+    border-radius: 0!important;
+}
+.breadcrumb-item a{
+    color: #ffc107;
+}
+.breadcrumb-item a hoover{
+    color: #ff8b07!important;
+}
+#btn-agregar-campo {
+    margin-top: 10px;
+}
+
+.campo-dinamico {
+    margin-bottom: 10px;
+    margin-left: 15px;
+    clear: both;
+    overflow: hidden; /* Limpiar el float */
+    width:calc(100% - 40px) ;
+}
+
+.campo-dinamico input {
+    width: calc(80% - 40px); /* Reduzco el ancho del input para dejar espacio al botón */
+    display: inline-block; /* Hago que el input y el botón estén en la misma línea */
+    float: left; /* Evitar que el botón se mueva debajo del input */
+}
+
+.campo-dinamico button {
+    width: 40px; /* Ajusto el ancho del botón */
+    float: left; /* Hago que el botón esté en la misma línea que el input */
+}
+
+.btn-eliminar-campo {
+    cursor: pointer;
+}
+
+textarea {
+    width: calc(100% - 20px); /* Reduzco el ancho del textarea */
+}
+#limite-mensaje {
+    clear: both;
+    margin-top: 10px;
+    color: red;
+}
+.message-generico {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+/* Estilo para mensajes de éxito */
+.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+/* Estilo para mensajes de información */
+.info {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+}
+
+/* Estilo para mensajes de advertencia */
+.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+/* Estilo para mensajes de error */
+.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+/* Estilo para el botón de configuración */
+.btn-configuracion-canal {
+    background-color: #17a2b8!important;
+    color: #fff!important;
+    border: 1px solid #17a2b8;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* Estilo para el botón de configuración al pasar el ratón */
+.btn-configuracion-canal:hover {
+    color: #fff;
+    background-color: #166f7d!important;
+    border-color: #138496;
+}
+.custom-control-label{
+    position: initial!important;
+}
+.listContainer {
+    max-height: 70vh;  /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto;  /* Agrega un scrollbar vertical si es necesario */
+}
+#canal-form fieldset{
+    border: 1px;
+    border-style: dashed;
+    border-color: #555;
+    border-radius: 15px;
+    padding: 15px;
+}
+#canal-form legend {
+    font-weight: bold;
+    color: #555;
+    margin: 0 auto; /* Centra el legend dentro del fieldset */
+    width: auto; /* Ajusta el ancho automáticamente */
+}
+.card-body h2{
+    font-weight: bold;
+    color: #555;
+}
+.card-body p, li{
+    color: #555;
+}
+/*Estilos para la paginación*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    background-color:#343a40;
+    color: #FFF;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #ffc107;
+    color: #343a40;
+}
+
+.pagination .current {
+    background-color: #343a40;
+    color: white;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+}
+
+/* Selector para el mensaje cuando no hay gráficas asociadas al canal */
+.no-graficas-message {
+    color: #555; /* Color del texto */
+    font-size: 18px; /* Tamaño del texto */
+    text-align: center; /* Alineación del texto */
+    margin-top: 20px; /* Espacio superior */
+}
+/* Selector para el contenedor de agregar visualizaciones */
+.add-visualization-container {
+    background-color: #3498db; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Relleno interno */
+    margin: 20px; /* Espacio superior */
+    cursor: pointer; /* Cambia el cursor al pasar por encima para indicar que es interactivo */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center;
+    width: 20%;
+}
+
+/* Estilo cuando se pasa el ratón por encima del contenedor */
+.add-visualization-container:hover {
+    background-color: #2980b9; /* Cambia el color de fondo al pasar por encima */
+}
+.color-selector {
+    width: 30%!important;  /* Puedes ajustar el porcentaje según tus necesidades */
+    display: inline-block!important;
+    margin-right: 10px;
+}
+
+.chart-container {
+    overflow: auto;  /* Puedes cambiar 'auto' por 'scroll' según tus preferencias */
+    max-height: 83vh;  /* Ajusta la altura máxima según tus necesidades */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Opcional: Agrega estilos adicionales según sea necesario */
+.chart-item {
+    margin-bottom: 20px;  /* Espaciado entre elementos */
+}
+label[for="id_username"],
+label[for="id_password1"],
+label[for="id_password2"] {
+    color: #ffc107;
+}
+.edit-icon {
+    color: #ffffff; /* Cambia este valor al color que desees */
+    cursor: pointer;
+}
+
+
+.chart-item {
+    position: relative;
+    margin: 10px;
+}
+
+.edit-container {  
+    display: inline;  
+    padding: 2px;
+    position: absolute;
+    top: 5px;
+    right:0;
+}
+.edit-container button{
+    border: none!important;
+    background-color: transparent;
+}
+
+.window-header {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #343a40;
+    background: #343a40 none top right no-repeat;
+    font-weight: bold;
+    color: #ffffff;
+    top:0;
+    position:absolute;
+    width: 100%;
+    left: 0;
+}
+.window-header p{
+    display: inline;
+}
+.chartContentContainer{
+    margin-top: 25px;
+}

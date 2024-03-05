@@ -87,13 +87,23 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
+   #     'NAME': 'beeUtp',
+    #    'USER': 'beeUtp',
+     #   'PASSWORD': 'beeUtp',
+      #  'PORT':'',
+   # }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'beeUtp',
-        'USER': 'beeUtp',
-        'PASSWORD': 'beeUtp',
-        'PORT':'',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'beeutp',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost', # O el host de tu servidor MySQL
+        'PORT': '3306', # El puerto predeterminado de MySQL
     }
 }
 
@@ -134,6 +144,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
