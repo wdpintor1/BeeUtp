@@ -12,3 +12,9 @@ Preguntas:
 * Que pasa si no coincide lo que se creo en el canal con los datos que se estan enviando por la url
 * La información que se envia se guarda primero en la bd y luego se grafica? 
 * si muestra las graficas en tiempo real?
+
+Para correr la aplicación en local:
+* activar el entorno virtual que tiene instalados todos los requirements
+.\venv\Scripts\activate 
+* correr la instancia docker desde docker y desde la consola
+docker run --rm -p 6379:6379 redis:7
