@@ -1,1 +1,1 @@
-web: gunicorn beeutp.wsgi
+web: gunicorn beeUtp.wsgi
