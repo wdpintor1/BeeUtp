@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="containerCanales mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <!-- Botón para la creación de canales -->
+            <a href="{% url 'crear_canal' %}" class="btn btn-success float-right">
+                <i class="fa fa-plus"></i> Crear Canal
+            </a>
+            
+            <h2>Mis Canales</h2>
+            {% if canales %}
+                <div class="listContainer card shadow mt-3">
+                    <ul class="list-group">
+                        {% for canal in canales %}
+                            <li class="list-group-item mb-3">                                
+                                <h5 class="mb-1"><strong>{{ canal.nombre }}</strong></h5>
+                                <p class="mb-1"><strong>Descripción:{{canal.descripcion.length}}</strong> 
+                                    {{ canal.descripcion | slice:":400" }}
+                                    {% if canal.descripcion.length >= 400 %}...{% endif %}
+                                </p>
+                                <a href="{% url 'editar_canal' canal.idCanal %}" class="btn-configuracion-canal btn">
+                                    <i class="fas fa-cogs"></i> Configurar
+                                </a>
+                                <a href="{% url 'graficas_canal' canal.idCanal %}" class="btn btn-success">
+                                    <i class="fas fa-chart-bar"></i> Graficas
+                                </a>
+                                <button id="btnEliminarList{{ canal.idCanal }}" type="button" class="btn btn-danger eliminar-btn" data-toggle="modal" data-target="#confirmacionModal" data-canal-id="{{ canal.idCanal }}">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>                                                            
+                                <div>
+                                    <small class="text-muted"><strong>Creado:</strong> {{ canal.fecha_creacion|date:"Y-m-d" }}</small><br>
+                                    <small class="text-muted"><strong>Modificado:</strong> {{ canal.fecha_actualizacion|date:"Y-m-d" }}</small>
+                                </div>
+                            </li>                                                    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <!-- Mostrar paginación -->
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if canales.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ canales.previous_page_number }}">previous</a>
+                            {% endif %}
+                            {% if canales.has_previous or canales.has_next %}
+                                <span class="current">
+                                    Página {{ canales.number }} de {{ canales.paginator.num_pages }}
+                                </span>
+                            {% endif %}                            
+                            {% if canales.has_next %}
+                                <a href="?page={{ canales.next_page_number }}">next</a>
+                                <a href="?page={{ canales.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% else %}
+                    <p class="mt-3">No tienes canales aún.</p>
+                {% endif %}           
+    </div>
+</div>
+{% block messages %}
+    <ul class="message-container">
+        {% for message in messages %}
+            <li
+                {% if message.tags %}
+                    class="{{ message.tags }}"
+                {% else %}
+                    class="message-generico"
+                {% endif %}>{{ message }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+<div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmacionModalLabel">Confirmar eliminación</h5>
+                <button type="button" class="close btnCerrarModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas eliminar el canal?
+            </div>        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-configuracion-canal btnCancelarModal" data-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button id="btnEliminarModal" type="button" class="btn btn-danger eliminar-btn">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </div> 
+        </div>  
+    </div>  
+</div>
+<script>
+    $(document).ready(function () {
+        $('.eliminar-btn').on('click', function () {
+            // Obtener el botón
+            var canalId = $(this).data('canal-id'); 
+            console.log(canalId);
+            
+            // Actualizar el valor de data-canal-id en el botón modal
+            $('#btnEliminarModal').attr('data-canal-id', canalId);
+            
+            // Mostrar el modal de confirmación
+            $('#confirmacionModal').modal('show');
+        });
+        $('#btnEliminarModal').on('click', function () {
+            var canalId = $(this).data('canal-id'); 
+            // Construir la URL de eliminación
+            var eliminarUrl = '/canales/eliminar_canal/' + canalId;
+            // Redirigir a la URL de eliminación
+            window.location.href = eliminarUrl;
+        });  
+    });
+    $('.btnCancelarModal').on('click', function () {
+        // Ocultar el modal de confirmación
+        $('#confirmacionModal').modal('hide');
+    });
+    
+    $('.btnCerrarModal').on('click', function () {
+        // Ocultar el modal de confirmación
+        $('#confirmacionModal').modal('hide');
+    });
+</script> 
+{% endblock %}

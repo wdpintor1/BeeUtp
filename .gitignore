@@ -1,0 +1,6 @@
+# Archivos .pyc generados por Python
+*.pyc
+
+# Carpetas __pycache__ y migrations
+**/__pycache__/
+**/migrations/

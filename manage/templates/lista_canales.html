@@ -1,0 +1,98 @@
+<div class="containerCanales mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <!-- Botón para la creación de canales -->
+            <a href="{% url 'crear_canal' %}" class="btn btn-success float-right">
+                <i class="fa fa-plus"></i> Crear Canal
+            </a>
+            
+            <h2>Mis Canales</h2>
+            {% if canales %}
+                <div class="listContainer card shadow mt-3">
+                    <ul class="list-group">
+                        {% for canal in canales %}
+                            <li class="list-group-item mb-3">                                
+                                <h5 class="mb-1"><strong>{{ canal.nombre }}</strong></h5>
+                                <p class="mb-1"><strong>Descripción:{{canal.descripcion.length}}</strong> 
+                                    {{ canal.descripcion | slice:":400" }}
+                                    {% if canal.descripcion.length >= 400 %}...{% endif %}
+                                </p>
+                                <a href="{% url 'editar_canal' canal.idCanal %}" class="btn-configuracion-canal btn">
+                                    <i class="fas fa-cogs"></i> Configurar
+                                </a>
+                                <button id="btnEliminarList" type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmacionModal" data-canal-id="{{ canal.idCanal }}">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                                <div>
+                                    <small class="text-muted">Creado: {{ canal.fecha_creacion|date:"Y-m-d" }}</small><br>
+                                    <small class="text-muted">Modificado: {{ canal.fecha_actualizacion|date:"Y-m-d" }}</small>
+                                </div>
+                            </li>                                                    
+                            {% endfor %}
+                        </ul>
+                    </div>
+                
+                    <!-- Mostrar paginación -->
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if canales.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ canales.previous_page_number }}">previous</a>
+                            {% endif %}
+                            {% if canales.has_previous or canales.has_next %}
+                                <span class="current">
+                                    Página {{ canales.number }} de {{ canales.paginator.num_pages }}
+                                </span>
+                            {% endif %}                            
+                            {% if canales.has_next %}
+                                <a href="?page={{ canales.next_page_number }}">next</a>
+                                <a href="?page={{ canales.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% else %}
+                    <p class="mt-3">No tienes canales aún.</p>
+                {% endif %}           
+    </div>
+</div>
+<div class="modal fade " id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="confirmacionModalLabel">Confirmar eliminación</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar el canal?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-configuracion-canal" data-dismiss="modal">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button type="button" class="btn btn-danger eliminar-btn" data-toggle="modal" data-target="#confirmacionModal" data-canal-id="{{ canal.idCanal }}">
+                <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // Capturar el evento click del botón eliminar
+                $('#btnEliminarList').on('click', function () {
+                    // Obtener el ID del canal
+                    var canalId = $(this).data('canal-id');
+                    // Asignar el ID del canal al botón de eliminar en el modal
+                    $('#eliminarBtn').data('canal-id', canalId);
+                });
+        
+                // Capturar el evento click del botón eliminar en el modal
+                $('#eliminarBtn').on('click', function () {
+                    // Obtener el ID del canal
+                    var canalId = $(this).data('canal-id');
+                    // Construir la URL de eliminación
+                    var eliminarUrl = '/canales/eliminar_canal/' + canalId;
+                    // Redirigir a la URL de eliminación
+                    window.location.href = eliminarUrl;
+                });
+            });
+        </script>

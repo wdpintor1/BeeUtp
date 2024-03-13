@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+<!-- Muestra las migas de pan -->
+{% block breadcrumbs %}
+    {% for breadcrumb in breadcrumbs %}
+        <!-- Migas de pan específicas para esta página -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url breadcrumb.url %}">{{ breadcrumb.label }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.actual }}</li>
+            </ol>
+        </nav>
+    {% endfor %}
+{% endblock %}
+{% block content %}
+    <script>
+        // Configura la variable de Django en el contexto global
+        window.tituloGrafica = "{{item.tituloGrafica}}";
+        var idCanal = {{ idCanal }};
+    </script>
+    {% if charts %}    
+        <div class="chart-container">            
+            {% for value in charts %} 
+                    <div class="chart-item">  
+                        <div class="window-header">
+                            <p>{{ value.urlName|safe }} - {{value.tituloGrafica}}</p>
+                            <div class="edit-container">
+                            <button onclick="abrir_modal_edicion('{% url 'editar_visualizacion' id_chart=value.id id_canal=idCanal %}')">
+                                <i class="fas fa-edit edit-icon" data-chart-id="{{value.id}}" title="Editar propiedades"></i>
+                            </button>
+                        </div>
+                    </div>                   
+                    <div class="item" data-item-id="{{value.id}}" data-item-titulo="{{value.tituloGrafica}}"></div>
+                    <div class="chartContentContainer">
+                        <div id="chartContainer{{value.id}}">           
+                            <canvas id="myLineChart{{value.id}}"></canvas>           
+                        </div>          
+                    </div>                    
+                </div>
+            {% endfor %}            
+        </div>  
+        {% else %}
+        <h2 class="no-graficas-message">No tienes gráficas asociadas a este canal.</h2>
+    {% endif %}    
+    <!-- Contenedor para agregar visualizaciones -->
+    <!--<div id="add_visualization_window" class="add-visualization-container" data-toggle="modal" data-target="#add_visualization_modal">
+        <em class="fa fa-chart-bar timecontrol_index"></em>&nbsp;Agregar<br> visualizaciones
+    </div>-->
+    <div class="modal fade" id="editModal" role="dialog">
+        
+    </div>
+    
+    {{ room_name|json_script:"room-name" }}
+    <script>
+        // Definir variables globales para el gráfico
+        var chartsData = {{ charts|safe }};
+        function abrir_modal_edicion(url){
+            $('#editModal').load(url, function(){
+                $(this).modal('show');
+            });            
+        }
+    </script>
+    <script src="{% static 'js/charts.js' %}"></script>
+    
+{% endblock %}
