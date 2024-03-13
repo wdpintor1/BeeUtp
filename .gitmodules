@@ -1,0 +1,3 @@
+[submodule "beeutp"]
+	path = beeutp
+	url = https://git.heroku.com/beeutp.git
