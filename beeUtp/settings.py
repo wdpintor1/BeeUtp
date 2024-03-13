@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4pz+8h)8jo-e5^*6+vi0i_+0g5vfacc**lctfttfg^i!ia0=+#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['beeutp-f5aa15bc02e6.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','beeutp-f5aa15bc02e6.herokuapp.com']
 
 
 # Application definition
@@ -102,7 +102,7 @@ DATABASES = {
         'NAME': 'beeutp',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'database',
+        'HOST': 'localhost',#database -> con docker
         'PORT': '3306',
     }
 }
@@ -145,8 +145,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
