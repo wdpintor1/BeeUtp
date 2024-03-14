@@ -90,8 +90,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': dj_database_url.parse(
         'postgres://u2haditsdf9e5:pa243502e5a357e1d9f67d4d3690cc32c363443fef994b199812df8bcb83aa5c8@ceu9lmqblp8t3q.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d1kfikckjecss',
-        conn_max_age=600,
-        conn_health_checks=True,
+        conn_max_age=600
     )
 }
 
