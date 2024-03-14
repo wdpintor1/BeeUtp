@@ -1,1 +1,1 @@
-web: gunicorn beeUtp.wsgi --log-file -
+web: gunicorn beeUtp.wsgi

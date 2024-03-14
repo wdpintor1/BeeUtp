@@ -87,32 +87,13 @@ CHANNEL_LAYERS = {
     },
 }
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-   #     'NAME': 'beeUtp',
-    #    'USER': 'beeUtp',
-     #   'PASSWORD': 'beeUtp',
-      #  'PORT':'',
-   # }
-#}
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.mysql',
-   #     'NAME': 'beeutp',
-    #    'USER': 'root',
-     #   'PASSWORD': 'root',
-      #  'HOST': 'localhost',#database -> con docker
-       # 'PORT': '3306',
-    #}
-#}
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': dj_database_url.parse(
+        'postgres://u2haditsdf9e5:pa243502e5a357e1d9f67d4d3690cc32c363443fef994b199812df8bcb83aa5c8@ceu9lmqblp8t3q.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d1kfikckjecss',
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
