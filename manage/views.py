@@ -16,7 +16,7 @@ from django import forms
 from django.db import transaction
 from django.forms import modelformset_factory,modelform_factory
 import logging
-from collections import defaultdict
+from redis.exceptions import ConnectionError
 
 logger = logging.getLogger(__name__)
 
@@ -60,18 +60,29 @@ def signin(request):
         return render(request, 'login.html',{
             'form': CustomAuthenticationForm 
         })
-    else:         
-        user= authenticate(request, username=request.POST['username'], password=request.POST['password'])
-        if user is None:
-            messages.error(request, '¡El usuario o la contraseña son inválidos!')
-            return render(request, 'login.html',{
-            'form': CustomAuthenticationForm,
-            'claseMsj': 'alert alert-danger' 
-            }) 
-        else:
-            login_django(request, user)
-            return redirect('home')
-        
+    else:       
+        user= authenticate(request, username=request.POST['username'], password=request.POST['password'])  
+        try:            
+            if user is None:
+                messages.error(request, '¡El usuario o la contraseña son inválidos!')
+                return render(request, 'login.html',{
+                'form': CustomAuthenticationForm,
+                'claseMsj': 'alert alert-danger' 
+                }) 
+            else:
+                login_django(request, user)
+                return render(request, 'home.html')
+        except ConnectionError as e:
+            # Aquí manejas la excepción ConnectionError
+            # Por ejemplo, puedes agregar un mensaje de error para el usuario
+            if user is None:
+                messages.error(request, 'Error de conexión al servidor de redis.')
+                return render(request, 'login.html', {'form': CustomAuthenticationForm, 'claseMsj': 'alert alert-danger'})
+            else:    
+                login_django(request, user)            
+                return render(request, 'home.html')
+            
+            
 @login_required(login_url= 'login')
 def signout(request):
 	logout(request)
