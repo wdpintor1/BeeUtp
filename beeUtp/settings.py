@@ -88,16 +88,35 @@ WSGI_APPLICATION = "beeUtp.wsgi.application"
         'PORT': '3306',
     }
 }'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DATABASE_URL'),
-        'PORT': os.environ.get('DB_PORT'),
+# Obtén las variables de entorno proporcionadas por Heroku
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+# Divide la URL de la base de datos en sus componentes individuales
+if DATABASE_URL:
+    import urllib.parse
+    import psycopg2
+
+    urllib.parse.uses_netloc.append('postgres')
+    url = urllib.parse.urlparse(DATABASE_URL)
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': url.path[1:],
+            'USER': url.username,
+            'PASSWORD': url.password,
+            'HOST': url.hostname,
+            'PORT': url.port,
+        }
     }
-}
+else:
+    # Configuración de base de datos de respaldo si DATABASE_URL no está disponible
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
