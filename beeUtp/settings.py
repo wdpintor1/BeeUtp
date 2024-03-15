@@ -169,8 +169,5 @@ LOGIN_URL = '/signin/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-
-
-# Utiliza Redis como backend de almacenamiento de sesiones
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Usa la base de datos para almacenar las sesiones
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
