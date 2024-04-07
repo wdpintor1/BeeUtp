@@ -87,25 +87,26 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.postgresql_psycopg2',
-   #     'NAME': 'beeUtp',
-    #    'USER': 'beeUtp',
-     #   'PASSWORD': 'beeUtp',
-      #  'PORT':'',
-   # }
-#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'beeutp',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'beeUtp',
+        'USER': 'postgres',
         'PASSWORD': 'root',
-        'HOST': 'database',
-        'PORT': '3306',
+        'HOST':'localhost', #'database',
+        'PORT':'',
     }
 }
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.mysql',
+   #     'NAME': 'beeutp',
+    #    'USER': 'root',
+     #   'PASSWORD': 'root',
+      #  'HOST': 'database',
+       # 'PORT': '3306',
+    #}
+#}
 
 
 
