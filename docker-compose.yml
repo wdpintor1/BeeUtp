@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  database:
+      build:
+        context: .
+        dockerfile: Dockerfile.mysql
+      ports:
+        - "3307:3306"
+      command: "--bind-address=0.0.0.0"
+      volumes:
+        - mysql_data:/var/lib/mysql
+
+  beeutp:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MYSQL_DB_HOST=database  # Usamos el nombre del servicio de Docker de la base de datos
+    depends_on:
+      - database 
+
+  redis:
+    container_name: beeutp-redis
+    image: redis:7
+    ports:
+      - "6379:6379"
+    #networks:
+     # - mynetwork
+volumes:
+  mysql_data:
+#networks:
+ # mynetwork:
+  #  ipam:
+   #   driver: default
+    #  config:
+     #   - subnet: 172.20.0.2/16

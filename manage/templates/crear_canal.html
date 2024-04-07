@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+    {% for breadcrumb in breadcrumbs %}
+    <!-- Migas de pan específicas para esta página -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url breadcrumb.url %}">{{breadcrumb.label}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{breadcrumb.actual}}</li>
+        </ol>
+    </nav>
+    {% endfor %}
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Columna del formulario -->
+        <div class="col-md-8" style="overflow-y: auto; max-height: 600px;">
+            <div class="card shadow">
+                <div class="card-body">
+                    <!--<h2 class="mb-4 text-center">Crear canal</h2>-->
+                    <form method="post" action="{% url 'crear_canal' %}" id="canal-form">
+                    {% csrf_token %}    
+                    {% crispy form %}                       
+                    </form> 
+                </div>
+            </div>
+        </div>
+        <!-- Columna de la ayuda y configuración del canal -->
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2 class="mb-4">Ayuda</h2>
+                    <p>Los canales almacenan todos los datos que recopila una aplicación de BeeUtp. 
+                    Cada canal incluye ocho campos que pueden contener cualquier tipo de datos. Una vez que
+                    recopilas datos en un canal, puedes utilizar aplicaciones de BeeUtp para analizarlos y visualizarlos.
+                    </p>
+                    <h2 class="mb-4">Configuración del canal</h2>
+                    <ul>
+                        <li><strong>Nombre del canal:</strong> Ingresa un nombre para tu canal</li>
+                        <li><strong>Descripción:</strong> Ingresa una descripción para tu canal</li>
+                        <li><strong>Campos:</strong> Checkea configurar un nuevo campo para tu canal, podrás agregar un máximo de 8 campos</li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+<script src="{% static 'js/crear_canal.js' %}"></script>
+{% endblock %}

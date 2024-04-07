@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block content%}
+<div class="divFondo">  
+  <div class="centerPanel">
+    <img src="{% static 'img/logoUtp.png' %}" width=200>
+    <div class="formContainer">
+      <h1 class="tituloPagina">Iniciar sesión</h1>     
+      <form action="/signin/" method="POST">
+        {% csrf_token %}
+        {{form.as_p}} 
+        <button type="submit" class="btn btn-outline-warning">Entrar</button>      
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
