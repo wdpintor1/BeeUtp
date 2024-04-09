@@ -71,7 +71,7 @@ def signin(request):
                 }) 
             else:
                 login_django(request, user)
-                return render(request, 'home.html')
+                return lista_canales(request)
         except ConnectionError as e:
             # Aquí manejas la excepción ConnectionError
             # Por ejemplo, puedes agregar un mensaje de error para el usuario
